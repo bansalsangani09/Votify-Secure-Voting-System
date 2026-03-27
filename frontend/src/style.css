@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-inter: "Inter", sans-serif;
+
+    /* Light Mode Colors */
+    --color-bg-light: #F8FAFC;
+    --color-card-light: #FFFFFF;
+    --color-primary-light: #2563EB;
+    --color-text-primary-light: #0F172A;
+    --color-text-secondary-light: #64748B;
+
+    /* Dark Mode Colors */
+    --color-bg-dark: #0F172A;
+    --color-card-dark: #1E293B;
+    --color-primary-dark: #3B82F6;
+    --color-text-primary-dark: #F8FAFC;
+    --color-text-secondary-dark: #94A3B8;
+
+    /* Custom Shadows */
+    --shadow-premium: 0 8px 30px rgba(0, 0, 0, 0.04);
+    --shadow-premium-dark: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+@layer base {
+    body {
+        @apply font-inter antialiased bg-bg-light text-text-primary-light transition-colors duration-300;
+    }
+
+    .dark body {
+        @apply bg-bg-dark text-text-primary-dark;
+    }
+}
+
+@layer components {
+    .premium-card {
+        @apply bg-card-light dark:bg-card-dark rounded-[20px] shadow-premium dark:shadow-premium-dark border border-slate-100 dark:border-slate-800 transition-all duration-300;
+    }
+
+    .glass {
+        @apply bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-white/20 dark:border-slate-700/30;
+    }
+
+    .premium-gradient {
+        @apply bg-gradient-to-br from-blue-600 to-indigo-700 dark:from-blue-500 dark:to-indigo-600;
+    }
+
+    .text-gradient {
+        @apply bg-clip-text text-transparent bg-gradient-to-br from-blue-600 to-indigo-700 dark:from-blue-400 dark:to-indigo-500;
+    }
+}
+
+/* Custom transitions and scrollbar */
+* {
+    @apply transition-colors duration-200;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-slate-200 dark:bg-slate-800 rounded-full hover:bg-slate-300 dark:hover:bg-slate-700;
+}

@@ -1,86 +1,201 @@
-# ✨ Votify: Secure Voting System
+# ✨ Votify: Secure Blockchain-Based Voting System
 
-Votify is a secure, transparent, and real-time voting application. It ensures tamper-proof elections while providing a modern and intuitive user interface for both administrators and voters.
+Votify is a full-stack, real-time decentralized voting application (dApp) designed to ensure **transparency, security, and trust** in elections. It combines blockchain technology with modern web development to deliver a scalable and user-friendly voting platform.
 
 ---
 
 ## 🚀 Key Features
 
-- **🛡️ Secure Data Integrity**: Every vote is recorded with cryptographic integrity, ensuring immutability and transparency.
-- **📊 Real-time Monitoring**: Live tracking of election progress and results using Socket.io integration.
-- **🔐 Robust Authentication**: Secure login system with Google OAuth support and reCAPTCHA protection.
-- **🛠️ Admin Dashboard**: Comprehensive suite for managing elections, candidates, and voters, along with system health monitoring.
-- **👤 Voter Experience**: Intuitive interface for voters to browse active elections and securely cast their ballots.
-- **📉 Data Visualization**: Beautifully rendered results and statistics using Recharts and Framer Motion for smooth transitions.
-- **🕵️ Audit Logs**: Detailed activity tracking for administrative actions and system events.
+### 🛡️ Security & Authentication
+- JWT-based authentication
+- Google OAuth integration
+- reCAPTCHA protection
+- Role-based access control (Admin/User)
+- Rate limiting & security middleware (Helmet, custom filters)
+
+### ⚡ Real-Time System
+- WebSocket (Socket.IO) integration
+- Live voting updates without page refresh
+- Instant notifications for voters and admins
+- Event-driven architecture
+
+### 🧠 Backend Architecture
+- Modular service-based architecture (Controller → Service → Model)
+- Transaction queue for blockchain consistency
+- Global error handling middleware
+- Scalable and maintainable code structure
+
+### 📊 Data & Blockchain
+- MongoDB for fast data access and metadata storage
+- Ethereum blockchain (Ganache) for vote integrity
+- Hybrid architecture (Off-chain + On-chain)
+- Audit logs for system transparency
+
+### ✅ API Validation
+- Joi-based validation middleware
+- Validation for body, params, and query
+- Structured error responses
+- Protection against invalid and malicious inputs
 
 ---
 
 ## 🛠️ Technology Stack
 
-| Layer | Technologies |
-| :--- | :--- |
-| **Frontend** | React (Vite, TypeScript), Tailwind CSS, Framer Motion, Lucide Icons, Recharts |
-| **Backend** | Node.js, Express, MongoDB (Mongoose), Socket.io |
-| **Security** | JWT, Google OAuth, reCAPTCHA v3, Helmet, BCrypt |
+| Layer        | Technologies |
+|-------------|-------------|
+| **Frontend** | React (Vite, TypeScript), Tailwind CSS, Framer Motion, Recharts |
+| **Backend**  | Node.js, Express, MongoDB (Mongoose), Socket.IO, Ethers.js |
+| **Blockchain** | Solidity, Hardhat, Ganache |
+| **Security** | JWT, OAuth, reCAPTCHA, Helmet, BCrypt |
+| **Validation** | Joi |
 
 ---
 
 ## 🏗️ System Architecture
 
-Votify follows a modular architecture consisting of the following main components:
+Votify follows a **hybrid architecture**:
 
-1.  **API Layer (Backend)**: An Express server that manages user authentication, data persistence in MongoDB, and real-time updates via Socket.io.
-2.  **UI Layer (Frontend)**: A modern React application providing a responsive and interactive dashboard for all users.
+1. **Blockchain Layer**
+   - Smart contracts handle vote integrity and immutability  
+   - Ensures tamper-proof election results  
+
+2. **Backend (API Layer)**
+   - Handles authentication, business logic, and API requests  
+   - Syncs blockchain and database  
+   - Emits real-time updates via WebSockets  
+
+3. **Frontend (UI Layer)**
+   - Interactive dashboard for admins and voters  
+   - Displays real-time results and notifications  
+
+👉 MongoDB ensures fast UI performance, while blockchain ensures trust and integrity.
 
 ---
 
-## ⚙️ Installation & Setup
+## ⚙️ Demo Mode (Deployment Ready)
 
-### Prerequisites
-- [Node.js](https://nodejs.org/) (v16+)
-- [MongoDB Atlas](https://www.mongodb.com/atlas/database) or local MongoDB instance
+To enable smooth deployment without requiring a blockchain node:
 
-### 1️⃣ Environment Configuration
-Create `.env` files in each of the following directories:
-
-**`/backend/.env`**:
 ```env
-PORT=5000
-MONGODB_URI=your_mongodb_uri
-JWT_SECRET=your_jwt_secret
-GOOGLE_CLIENT_ID=your_google_id
-GOOGLE_CLIENT_SECRET=your_google_secret
-VITE_RECAPTCHA_SITE_KEY=your_site_key
-RECAPTCHA_SECRET_KEY=your_secret_key
+DEMO_MODE=true
 ```
 
-### 2️⃣ Backend Setup
-```bash
-cd backend
-npm install
-npm run dev
-```
+🔹 **What Demo Mode Does:**
+- Simulates blockchain transactions
+- Keeps real-time WebSocket features fully functional
+- Preserves backend architecture and API flow
 
-### 3️⃣ Frontend Setup
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
----
+👉 Ideal for showcasing the project in production environments
 
 ## 📁 Project Structure
 
 ```text
 Votify/
-├── backend/          # Express API, MongoDB models, Socket.io
-├── frontend/         # React/Vite application, Tailwind styles
-└── docs/             # Documentation and assets
+├── backend/
+│   ├── src/
+│   │   ├── modules/        # Feature modules (Auth, Vote, Election)
+│   │   ├── services/       # Blockchain, Queue, Mail services
+│   │   ├── middleware/     # Auth, Validation, Security, Error handling
+│   │   ├── validations/    # Joi schemas
+│   │   ├── config/         # DB & environment configs
+│   │   └── utils/          # Socket & notification utilities
+│
+├── blockchain/             # Hardhat + Solidity contracts
+├── frontend/               # React application
+└── docs/                   # Documentation/assets
 ```
 
----
+## 🔄 Request Flow
+
+1. Client sends request
+2. Authentication middleware verifies user
+3. Joi validation checks request data
+4. Controller handles request
+5. Service layer processes logic
+6. Blockchain (or demo mode) executes
+7. WebSocket emits real-time updates
+
+## ⚙️ Installation & Setup
+
+### 🔧 Prerequisites
+- Node.js (v16+)
+- MongoDB (Atlas or local)
+- Ganache (for blockchain mode)
+
+### 1️⃣ Clone Repository
+```bash
+git clone https://github.com/bansalsangani09/Votify-Secure-Voting-System
+cd Votify
+```
+
+### 2️⃣ Install Dependencies
+```bash
+cd backend
+npm install
+```
+
+### 3️⃣ Environment Variables
+
+📁 **backend/.env**
+
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_uri
+JWT_SECRET=your_secret
+GOOGLE_CLIENT_ID=your_google_id
+GOOGLE_CLIENT_SECRET=your_google_secret
+RECAPTCHA_SECRET_KEY=your_secret_key
+DEMO_MODE=true
+```
+
+### 4️⃣ Run Backend
+```bash
+npm run dev
+```
+
+### ⛓️ Blockchain Setup (Optional - Development Mode)
+
+1. **Start Ganache**
+   - Open Ganache → Quickstart Ethereum
+   - RPC URL: `http://127.0.0.1:7545`
+
+2. **Compile Contracts**
+   ```bash
+   cd blockchain
+   npx hardhat compile
+   ```
+
+3. **Deploy Contracts**
+   ```bash
+   npx hardhat run scripts/deploy.js --network ganache
+   ```
+
+## 🌐 Deployment
+
+| Service | Platform |
+| :--- | :--- |
+| **Backend** | Render |
+| **Frontend** | Vercel |
+
+👉 Use Demo Mode for deployment without blockchain dependency
+
+## 📌 Key Highlights
+- Real-time voting system using WebSockets
+- Blockchain-integrated secure architecture
+- Production-level backend with validation & security
+- Scalable and modular design
+
+## 🚀 Future Improvements
+- Deployment on Ethereum testnet (Sepolia)
+- Advanced analytics dashboard
+- Multi-election scalability
+- Performance optimization & caching
+
+## 👨‍💻 Author
+
+**Bansal Sangani**  
+GitHub: [bansalsangani09](https://github.com/bansalsangani09)
 
 ## 📜 License
+
 This project is licensed under the ISC License.
